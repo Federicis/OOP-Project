@@ -5,7 +5,7 @@ class shop{
 private:
     std::string Aici_o_sa_apara_cele_5_carti_pe_care_le_poti_cumpara_din_shop_dupa_ce_implementez_clasele;
 public:
-    shop(const std::string &aiciOSaAparaCele5CartiPeCareLePotiCumparaDinShopDupaCeImplementezClasele)
+    explicit shop(const std::string &aiciOSaAparaCele5CartiPeCareLePotiCumparaDinShopDupaCeImplementezClasele)
             : Aici_o_sa_apara_cele_5_carti_pe_care_le_poti_cumpara_din_shop_dupa_ce_implementez_clasele(
             aiciOSaAparaCele5CartiPeCareLePotiCumparaDinShopDupaCeImplementezClasele) {
         std::cout << "constructor shop\n";
@@ -75,7 +75,7 @@ class game{
 private:
     int round;
 public:
-    game(int round) : round(round) {
+    explicit game(int round) : round(round) {
         std::cout << "constructor meci\n";
     }
 
