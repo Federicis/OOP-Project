@@ -6,7 +6,7 @@
 class card{
     int level;
 public:
-    card(int level) : level(level) {}
+    explicit card(int level) : level(level) {}
 
     int getLevel() const {
         return level;
@@ -97,7 +97,7 @@ public:
 class shop{
     std::vector<card> cards;
 public:
-    shop(const std::vector<card> &cards) : cards(cards) {}
+    explicit shop(const std::vector<card> &cards) : cards(cards) {}
 
     friend std::ostream &operator<<(std::ostream &os, const shop &shop) {
         os << "cards: ";
