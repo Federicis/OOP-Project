@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.15)
 # for now, the project name is used as the executable name
 project(oop)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -24,7 +24,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp headers/card.h sources/card.cpp headers/player.h sources/player.cpp headers/shop.h sources/shop.cpp headers/game.h sources/game.cpp headers/sleep.h)
 
 ###############################################################################
 
