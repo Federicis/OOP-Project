@@ -50,15 +50,16 @@
             do
             {
                 ok = true;
-                try {
+                std::cin >> ord;
+                while(std::cin.fail()){
+                    std::cin.clear();
+                    std::cin.ignore(INT_MAX, '\n');
+                    std::cout << "Error. Try again.\n";
                     std::cin >> ord;
-                    if(ord <1 || ord > 5){
-                        throw (ord);
-                    }
                 }
-                catch (int ordine){
-                    std::cout << "Numarul nu se regaseste in intervalul cerut\n Try Again\n";
-                    ok = false;
+                if(ord < 1 || ord > 5){
+                    ok = 0;
+                    std::cout << "Numarul nu este in intervalul cerut.\n Try again \n";
                 }
                 if(ok)
                     if(this->cards[ord - 1].getLevel() == 2) {

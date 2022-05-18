@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "card.h"
+#include <climits>
 
 class player{
 
