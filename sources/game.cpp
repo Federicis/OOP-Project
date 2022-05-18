@@ -2,12 +2,13 @@
 // Created by feder on 5/18/2022.
 //
 #include "../headers/game.h"
-game::game(int round, bool turn) : round(round), turn(turn) {}
-
-std::ostream &operator<<(std::ostream &os, const game &game) {
-    os << "round: " << game.round << " turn: " << game.turn;
-    return os;
+int game::round = 0;
+int game::turn = 0;
+game& game::get_game(){
+    static game game;
+    return game;
 }
+
 std::vector<card> game::starting_deck(){
     std::vector<card> deck;
     card c0{0};

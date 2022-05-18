@@ -9,13 +9,12 @@
 #pragma once
 
 class game{
-    int round;
-    int turn;
+    game() = default;
 public:
-    game(int round, bool turn);
-
-    friend std::ostream &operator<<(std::ostream &os, const game &game);
-
+    static int round, turn;
+    game(const game&) = delete;
+    game& operator=(const game&) = delete;
+    static game& get_game();
     std::vector<card> starting_deck();
 
     void start();
