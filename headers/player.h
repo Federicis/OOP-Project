@@ -23,6 +23,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const player &player);
 
     ~player();
+    friend void swap(player& first, player& second);
     void setup();
     void printdeck() const;
     void damage(int points);

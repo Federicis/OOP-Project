@@ -15,6 +15,15 @@
         hp = other.hp;
         return *this;
     }
+
+    void swap(player& first, player& second){
+    using std::swap;
+    swap(first.level_points, second.level_points);
+    swap(first.cards, second.cards);
+    swap(first.coins, second.coins);
+    swap(first.hp, second.hp);
+}
+
     player::~player() {}
      std::ostream &operator<<(std::ostream &os, const player &player) {
         os << "level_points: " << player.level_points << " cards: ";
