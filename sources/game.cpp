@@ -90,16 +90,16 @@ void game::start() {
             else {
                 bool ok = true;
                 if (!((GetKeyState(VK_RSHIFT) & 0x8000) && (GetKeyState(VK_LSHIFT) & 0x8000))) {
-                if (GetKeyState(VK_LSHIFT) & 0x8000) {
-                    std::cout << "P1 pierde \n";
-                    scorP2++;
-                    ok = 0;
-                }
-                if (GetKeyState(VK_RSHIFT) & 0x8000) {
-                    std::cout << "P2 pierde\n";
-                    scorP1++;
-                    ok = 0;
-                }
+                    if (GetKeyState(VK_LSHIFT) & 0x8000) {
+                        std::cout << "P1 pierde \n";
+                        scorP2++;
+                        ok = 0;
+                    }
+                    if (GetKeyState(VK_RSHIFT) & 0x8000) {
+                        std::cout << "P2 pierde\n";
+                        scorP1++;
+                        ok = 0;
+                    }
                 }
                 if(ok) {
                     if (P1.showcard(turn - 1) > P2.showcard(turn - 1)) {

@@ -4,13 +4,13 @@
 
 #include "../headers/card.h"
 
- card::card(int level) : level(level) {}
+card::card(int level) : level(level) {}
 
 int card::getLevel() const {
     return level;
 }
 
- std::ostream &operator<<(std::ostream &os, const card &card) {
+std::ostream &operator<<(std::ostream &os, const card &card) {
     os << "level: " << card.level;
     return os;
 }
@@ -19,6 +19,6 @@ void card::levelup(){
     level++;
 }
 
- card::~card() {
+card::~card() {
 
 }
