@@ -49,23 +49,21 @@
 
             do
             {
-                ok = true;
-                std::cin >> ord;
-                while(std::cin.fail()){
+                ok = false;
+                if(std::cin >> ord){
+                    if(ord < 1 || ord > 5){
+                        std::cout << "Numarul nu este in intervalul cerut.\n Try again \n";
+                    }
+                    else if(this->cards[ord - 1].getLevel() == 2) {
+                        std::cout << "Alege o carte cu mai putine puncte\n Try again\n";
+                    }
+                    else ok = true;
+                }
+                else{
                     std::cin.clear();
                     std::cin.ignore(INT_MAX, '\n');
                     std::cout << "Error. Try again.\n";
-                    std::cin >> ord;
                 }
-                if(ord < 1 || ord > 5){
-                    ok = 0;
-                    std::cout << "Numarul nu este in intervalul cerut.\n Try again \n";
-                }
-                if(ok)
-                    if(this->cards[ord - 1].getLevel() == 2) {
-                        std::cout << "Alege o carte cu mai putine puncte\n Try again\n";
-                        ok = 0;
-                    }
             }
             while(!ok);
             this->cards[ord - 1].levelup();
