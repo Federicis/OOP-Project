@@ -10,8 +10,8 @@
 
 class game{
     game() = default;
-public:
     static int round, turn;
+public:
     game(const game&) = delete;
     game& operator=(const game&) = delete;
     static game& get_game();
