@@ -2,10 +2,11 @@
 // Created by feder on 5/18/2022.
 //
 #include <iostream>
-#include "sleep.h"
 #include "card.h"
 #include "player.h"
 #include <vector>
+#include <thread>
+#include <chrono>
 #pragma once
 
 class game{

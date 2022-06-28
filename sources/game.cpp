@@ -2,6 +2,9 @@
 // Created by feder on 5/18/2022.
 //
 #include "../headers/game.h"
+
+using namespace std::chrono_literals;
+
 int game::round = 0;
 int game::turn = 0;
 game& game::get_game(){
@@ -55,13 +58,13 @@ void game::start() {
         while(turn <= 5){
 
             std::cout << "Cartea " << turn << '\n';
-            Sleep(1000);
+            std::this_thread::sleep_for(1000ms );
             std::cout << "3\n";
-            Sleep(1000);
+            std::this_thread::sleep_for(1000ms );
             std::cout << "2\n";
-            Sleep(1000);
+            std::this_thread::sleep_for(1000ms );
             std::cout << "1\n";
-            Sleep(1000);
+            std::this_thread::sleep_for(1000ms );
             std::cout << "PLAYER 1    |" << P1.showcard(turn - 1) << "|        ||        |"  <<P2.showcard(turn - 1) << "|    PLAYER 2\n";
             if(P1.showcard(turn - 1) == P2.showcard(turn - 1)){
                 std::cout << "EGAL\n";
