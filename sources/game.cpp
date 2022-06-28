@@ -43,6 +43,7 @@ void game::start() {
                  "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
     while(P1.getHP() > 0 && P2.getHP() > 0){
         this->round++;
+        if(this->round > 1) return;
         this->turn = 1;
         int scorP1 = 0, scorP2 = 0;
         std::cout << "RUNDA " << round << '\n';
