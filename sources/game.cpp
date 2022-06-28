@@ -13,12 +13,7 @@ game& game::get_game(){
 }
 
 std::vector<card> game::starting_deck(){
-    std::vector<card> deck;
-    card c0{0};
-    for(int i = 1; i <= 5; i++)
-    {
-        deck.push_back(c0);
-    }
+    std::vector<card> deck(5, card{0});
     return deck;
 }
 
@@ -45,7 +40,7 @@ void game::start() {
     system("pause");
     system("CLS");
     std::cout << "Tutorial:\n"
-                 "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(LSHIFT pentru P1, RSHIFT pentru P2)\n ";
+                 "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
     while(P1.getHP() > 0 && P2.getHP() > 0){
         this->round++;
         this->turn = 1;
@@ -70,38 +65,39 @@ void game::start() {
                 std::cout << "EGAL\n";
                 bool ok = false;
                 do {
-                    if((GetKeyState(VK_RSHIFT) & 0x8000) && (GetKeyState(VK_LSHIFT) & 0x8000))
-                    {
-                        ok = false;
-                        std::cout << "EGAL SE REPETA\n";
-                    }
-                    else{
-                        if (GetKeyState(VK_LSHIFT) & 0x8000) {
-                            std::cout << "P1 a fost primul!\n";
-                            scorP1++;
-                            ok = true;
-                        }
-                        if (GetKeyState(VK_RSHIFT) & 0x8000) {
+                    if (kbhit()) {
+                        char k = getch(); // Get character
+                        if(k == 'p'){
                             std::cout << "P2 a fost primul!\n";
                             scorP2++;
-                            ok = true;
-                        }}
+                            ok = 1;
+                        }
+                        else if(k == 'q'){
+                            std::cout << "P1 a fost primul!\n";
+                            scorP1++;
+                            ok = 1;
+                        }
+                        k = ' ';
+                    }
                 }
                 while(!ok);
                 system("pause");
             }
             else {
                 bool ok = true;
-                if (!((GetKeyState(VK_RSHIFT) & 0x8000) && (GetKeyState(VK_LSHIFT) & 0x8000))) {
-                    if (GetKeyState(VK_LSHIFT) & 0x8000) {
+                if (kbhit()) {
+                    char k = getch();
+                    if (k == 'q') {
                         std::cout << "P1 pierde \n";
                         scorP2++;
                         ok = 0;
+                        k = ' ';
                     }
-                    if (GetKeyState(VK_RSHIFT) & 0x8000) {
+                    if (k == 'p') {
                         std::cout << "P2 pierde\n";
                         scorP1++;
                         ok = 0;
+                        k = ' ';
                     }
                 }
                 if(ok) {

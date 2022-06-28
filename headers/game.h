@@ -7,6 +7,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include "rlutil.h"
 #pragma once
 
 class game{
@@ -16,7 +17,7 @@ public:
     game(const game&) = delete;
     game& operator=(const game&) = delete;
     static game& get_game();
-    std::vector<card> starting_deck();
+    static std::vector<card> starting_deck();
 
     void start();
 };
