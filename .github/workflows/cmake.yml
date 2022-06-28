@@ -201,6 +201,7 @@ jobs:
         if: ${{ !(runner.os == 'Windows' && matrix.cxx == 'g++') }}
         run: |
           CMAKE_GENERATOR=${{ matrix.cmake_generator }} cmake -S $GITHUB_WORKSPACE -B build \
+            -DGH_ACTIONS=1 \
             -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
             -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/artifacts \
             ${{ matrix.cmake_flags }}
