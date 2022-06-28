@@ -2,7 +2,7 @@
 // Created by feder on 5/18/2022.
 //
 #include "../headers/game.h"
-
+#define waitkey rlutil::anykey("Press any key to continue...\n")
 using namespace std::chrono_literals;
 
 int game::round = 0;
@@ -20,25 +20,25 @@ std::vector<card> game::starting_deck(){
 void game::start() {
     std::cout << "Tutorial:\n"
                  "      Fiecare jucator incepe cu 7 puncte de nivel si 5 carti de nivel 0. Trebuie sa distribuiti punctele de nivel intre\n cele 5 carti. O carte poate avea minim nivel 1 si maxim nivel 2 la inceputul jocului.\n\n\n";
-    system("pause");
-    system("CLS");
+    waitkey;
+    rlutil::cls();
     player P1{7, starting_deck(), 0, 10}, P2{P1};
 
     std::cout << "Primul jucator isi alege cartile, al doilea jucator nu se mai uita la ecran:\n";
-    system("pause");
+    waitkey;
     P1.setup();
-    system("CLS");
+    rlutil::cls();
     std::cout << "Pachetul tau este:\n";
     P1.printdeck();
-    system("pause");
-    system("CLS");
+    waitkey;
+    rlutil::cls();
     std::cout << "Al doilea jucator isi alege cartile, primul jucator nu se mai uita la ecran:\n";
-    system("pause");
+    waitkey;
     P2.setup();
     std::cout << "Pachetul tau este:\n";
     P2.printdeck();
-    system("pause");
-    system("CLS");
+    waitkey;
+    rlutil::cls();
     std::cout << "Tutorial:\n"
                  "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
     while(P1.getHP() > 0 && P2.getHP() > 0){
@@ -46,10 +46,10 @@ void game::start() {
         this->turn = 1;
         int scorP1 = 0, scorP2 = 0;
         std::cout << "RUNDA " << round << '\n';
-        system("pause");
+        waitkey;
         std::cout << "HP P1: " << P1.getHP() << '\n';
         std::cout << "HP P2: " << P2.getHP() << '\n';
-        system("pause");
+        waitkey;
         while(turn <= 5){
 
             std::cout << "Cartea " << turn << '\n';
@@ -81,7 +81,7 @@ void game::start() {
                     }
                 }
                 while(!ok);
-                system("pause");
+                waitkey;
             }
             else {
                 bool ok = true;
@@ -107,7 +107,7 @@ void game::start() {
                 }
             }
             std::cout << "SCOR\n" << "P1 ->" << scorP1 << "                 " << scorP2 <<"<-P2\n";
-            system("pause");
+            waitkey;
             this->turn++;
         }
         if(scorP1 > scorP2){
