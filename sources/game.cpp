@@ -15,9 +15,9 @@ void game::tutorial1(){
     waitkey;
 }
 
-void game::tutorial2(){
+void game::tutorial2(std::string P1, std::string P2){
         std::cout << "Tutorial:\n"
-                     "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
+                     "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru " << P1 <<", P pentru " << P2 <<")\n ";
 }
 
 void game::pick_cards(player &P){
@@ -38,8 +38,8 @@ void game::play(player &P1, player &P2){
         int scorP1 = 0, scorP2 = 0;
         std::cout << "RUNDA " << round << '\n';
         waitkey;
-        std::cout << "HP P1: " << P1.getHP() << '\n';
-        std::cout << "HP P2: " << P2.getHP() << '\n';
+        std::cout << "HP " << P1.getName() << ": " << P1.getHP() << '\n';
+        std::cout << "HP " << P2.getName() << ": " << P2.getHP() << '\n';
         waitkey;
         while(turn <= 5){
 
@@ -51,7 +51,7 @@ void game::play(player &P1, player &P2){
             std::this_thread::sleep_for(1000ms );
             std::cout << "1\n";
             std::this_thread::sleep_for(1000ms );
-            std::cout << "PLAYER 1    |" << P1.showcard(turn - 1) << "|        ||        |"  <<P2.showcard(turn - 1) << "|    PLAYER 2\n";
+            std::cout << P1.getName() << "    |" << P1.showcard(turn - 1) << "|        ||        |"  <<P2.showcard(turn - 1) << "|    " << P2.getName() << '\n';
             if(P1.showcard(turn - 1) == P2.showcard(turn - 1)){
                 std::cout << "EGAL\n";
                 bool ok = false;
@@ -59,12 +59,12 @@ void game::play(player &P1, player &P2){
                     if (kbhit()) {
                         char k = getch(); // Get character
                         if(k == 'p'){
-                            std::cout << "P2 a fost primul!\n";
+                            std::cout << P2.getName() << " a fost primul!\n";
                             scorP2++;
                             ok = 1;
                         }
                         else if(k == 'q'){
-                            std::cout << "P1 a fost primul!\n";
+                            std::cout << P1.getName() <<" a fost primul!\n";
                             scorP1++;
                             ok = 1;
                         }
@@ -79,13 +79,13 @@ void game::play(player &P1, player &P2){
                 if (kbhit()) {
                     char k = getch();
                     if (k == 'q') {
-                        std::cout << "P1 pierde \n";
+                        std::cout << P1.getName() <<" pierde \n";
                         scorP2++;
                         ok = 0;
                         k = ' ';
                     }
                     if (k == 'p') {
-                        std::cout << "P2 pierde\n";
+                        std::cout << P2.getName() <<" pierde\n";
                         scorP1++;
                         ok = 0;
                         k = ' ';
@@ -97,24 +97,16 @@ void game::play(player &P1, player &P2){
                     } else { scorP2++; }
                 }
             }
-            std::cout << "SCOR\n" << "P1 ->" << scorP1 << "                 " << scorP2 <<"<-P2\n";
+            std::cout << "SCOR\n" << P1.getName() <<" ->" << scorP1 << "                 " << scorP2 <<"<- " << P2.getName() << "\n";
             waitkey;
             turn++;
         }
         if(scorP1 > scorP2){
-            std::cout << "Congrats P1 ai castigat runda!\n"
-                         "P1 si-a luat " << round << " damage.\n"
-                                                     "P1 si-a luat " << round/2 << " heal^\n";
-            P2.damage(round);
-            P1.heal(round / 2);
+            roundRewards(P1, P2);
         }
         else
         {
-            std::cout << "Congrats P2 ai castigat runda!\n"
-                         "P1 si-a luat " << round << " damage.\n"
-                                                     "P2 si-a luat " << round/2 << " heal^\n";
-            P1.damage(round);
-            P2.heal(round / 2);
+            roundRewards(P2, P1);
         }
     }
 }
@@ -129,17 +121,32 @@ std::vector<card> game::starting_deck(){
     return deck;
 }
 
+std::string game::pick_name(int nr){
+    std::string nume;
+    std::cout << "Alege numele jucatorului " << nr <<": ";
+    std::cin >> nume;
+    return nume;
+}
+
+void game::roundRewards(player &P1, player &P2) {
+    std::cout << "Congrats " << P1.getName() <<", ai castigat runda!\n" <<
+              P2.getName() <<" si-a luat " << round << " damage.\n" <<
+              P1.getName() <<" si-a luat " << round/2 << " heal^\n";
+    P2.damage(round);
+    P1.heal(round / 2);
+}
+
 void game::start() {
     tutorial1();
     rlutil::cls();
-    player P1{7, starting_deck(), 0, 10}, P2{P1};
-    std::cout << "Primul jucator isi alege cartile, al doilea jucator nu se mai uita la ecran:\n";
+    player P1{pick_name(1), 7, starting_deck(), 0, 10}, P2{pick_name(2), 7, starting_deck(), 0, 10};
+    std::cout << P1.getName() << " isi alege cartile, " << P2.getName() << " nu se mai uita la ecran:\n";
     pick_cards(P1);
     rlutil::cls();
-    std::cout << "Al doilea jucator isi alege cartile, primul jucator nu se mai uita la ecran:\n";
+    std::cout << P2.getName() << " isi alege cartile," << P1.getName() <<" nu se mai uita la ecran:\n";
     pick_cards(P2);
     rlutil::cls();
-    tutorial2();
+    tutorial2(P1.getName(), P2.getName());
     play(P1, P2);
 }
 

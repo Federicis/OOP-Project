@@ -9,13 +9,17 @@
 #include <climits>
 
 class player{
-
+    std::string name;
     int level_points;
     std::vector<card> cards;
     int coins;
     int hp;
+
 public:
-    player(int levelPoints, const std::vector<card> &cards, int coins, int hp);
+
+    std::string getName();
+
+    player(std::string name, int levelPoints, std::vector<card> cards, int coins, int hp);
 
     player(const player& other);
 
@@ -31,4 +35,5 @@ public:
     void heal(int points);
     int showcard(int turn) const;
     int getHP() const;
+
 };

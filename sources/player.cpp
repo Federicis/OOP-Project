@@ -3,8 +3,14 @@
 //
 #include "../headers/player.h"
 
-player::player(int levelPoints, const std::vector<card> &cards, int coins, int hp) : level_points(levelPoints),
-                                                                                     cards(cards), coins(coins), hp(hp) {}
+#include <utility>
+
+std::string player::getName(){
+    return this->name;
+}
+
+player::player(std::string name, int levelPoints, std::vector<card> cards, int coins, int hp) : name(std::move(
+        name)), level_points(levelPoints), cards(std::move(cards)), coins(coins), hp(hp) {}
 
 player::player(const player& other) : level_points{other.level_points}, cards{other.cards}, coins{other.coins}, hp{other.hp} {}
 
@@ -92,3 +98,4 @@ int player::showcard(int turn) const{
 int player::getHP() const {
     return hp;
 }
+
