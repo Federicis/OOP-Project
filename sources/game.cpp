@@ -2,49 +2,39 @@
 // Created by feder on 5/18/2022.
 //
 #include "../headers/game.h"
+
 #define waitkey rlutil::anykey("Press any key to continue...\n")
 using namespace std::chrono_literals;
 
 int game::round = 0;
 int game::turn = 0;
-game& game::get_game(){
-    static game game;
-    return game;
-}
 
-std::vector<card> game::starting_deck(){
-    std::vector<card> deck(5, card{0});
-    return deck;
-}
-
-void game::start() {
+void game::tutorial1(){
     std::cout << "Tutorial:\n"
                  "      Fiecare jucator incepe cu 7 puncte de nivel si 5 carti de nivel 0. Trebuie sa distribuiti punctele de nivel intre\n cele 5 carti. O carte poate avea minim nivel 1 si maxim nivel 2 la inceputul jocului.\n\n\n";
     waitkey;
-    rlutil::cls();
-    player P1{7, starting_deck(), 0, 10}, P2{P1};
+}
 
-    std::cout << "Primul jucator isi alege cartile, al doilea jucator nu se mai uita la ecran:\n";
+void game::tutorial2(){
+        std::cout << "Tutorial:\n"
+                     "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
+}
+
+void game::pick_cards(player &P){
     waitkey;
-    P1.setup();
+    P.setup();
     rlutil::cls();
     std::cout << "Pachetul tau este:\n";
-    P1.printdeck();
+    P.printdeck();
     waitkey;
-    rlutil::cls();
-    std::cout << "Al doilea jucator isi alege cartile, primul jucator nu se mai uita la ecran:\n";
-    waitkey;
-    P2.setup();
-    std::cout << "Pachetul tau este:\n";
-    P2.printdeck();
-    waitkey;
-    rlutil::cls();
-    std::cout << "Tutorial:\n"
-                 "Acum ca set-up ul e gata, incep rundele. In fiecare runda playerii se vor duela cu cartile pe care le au. Fiecare carte se va lupta cu cartea oponentului de pe aceeasi pozitie. Castiga cartea cu nivel mai mare. In caz de egalitate, primul player care isi apasa tasta asignata castiga.(Q pentru P1, P pentru P2)\n ";
+}
+
+void game::play(player &P1, player &P2){
     while(P1.getHP() > 0 && P2.getHP() > 0){
-        this->round++;
-        if(this->round > 1) return;
-        this->turn = 1;
+        round++;
+        /// ----------- uncommment daca se foloseste date.txt -----------
+        //        if(round > 1) return;
+        turn = 1;
         int scorP1 = 0, scorP2 = 0;
         std::cout << "RUNDA " << round << '\n';
         waitkey;
@@ -109,7 +99,7 @@ void game::start() {
             }
             std::cout << "SCOR\n" << "P1 ->" << scorP1 << "                 " << scorP2 <<"<-P2\n";
             waitkey;
-            this->turn++;
+            turn++;
         }
         if(scorP1 > scorP2){
             std::cout << "Congrats P1 ai castigat runda!\n"
@@ -126,6 +116,30 @@ void game::start() {
             P1.damage(round);
             P2.heal(round / 2);
         }
-
     }
 }
+
+game& game::get_game(){
+    static game game;
+    return game;
+}
+
+std::vector<card> game::starting_deck(){
+    std::vector<card> deck(5, card{0});
+    return deck;
+}
+
+void game::start() {
+    tutorial1();
+    rlutil::cls();
+    player P1{7, starting_deck(), 0, 10}, P2{P1};
+    std::cout << "Primul jucator isi alege cartile, al doilea jucator nu se mai uita la ecran:\n";
+    pick_cards(P1);
+    rlutil::cls();
+    std::cout << "Al doilea jucator isi alege cartile, primul jucator nu se mai uita la ecran:\n";
+    pick_cards(P2);
+    rlutil::cls();
+    tutorial2();
+    play(P1, P2);
+}
+
