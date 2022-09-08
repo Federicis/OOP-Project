@@ -30,12 +30,14 @@ void swap(player& first, player& second){
     swap(first.hp, second.hp);
 }
 
-player::~player() {}
+player::~player() = default;
+
 std::ostream &operator<<(std::ostream &os, const player &player) {
     os << "level_points: " << player.level_points << " cards: ";
-    for(auto card : player.cards){
+
+    for (const auto &card: player.cards)
         os << card << " ";
-    }
+
     os << " coins: " << player.coins
        << " hp: " << player.hp;
     return os;
