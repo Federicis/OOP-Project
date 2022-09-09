@@ -1,8 +1,8 @@
-#include "headers/card.h"
-#include "headers/game.h"
+#include "headers/Card.h"
+#include "headers/Game.h"
 
 int main() {
-    game& joc = game::get_game();
+    Game& joc = Game::get_game();
     try{
         joc.start();
     }

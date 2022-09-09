@@ -1,21 +1,21 @@
 //
 // Created by feder on 5/17/2022.
 //
-#include "../headers/player.h"
+#include "../headers/Player.h"
 #include "../headers/Ace.h"
 
 #include <utility>
 
-std::string player::getName(){
+std::string Player::getName(){
     return this->name;
 }
 
-player::player(std::string name, int levelPoints, std::vector<card*> cards, int coins, int hp) : name(std::move(
+Player::Player(std::string name, int levelPoints, std::vector<Card*> cards, int coins, int hp) : name(std::move(
         name)), level_points(levelPoints), cards(std::move(cards)), coins(coins), hp(hp) {}
 
-player::player(const player& other) : level_points{other.level_points}, cards{other.cards}, coins{other.coins}, hp{other.hp} {}
+Player::Player(const Player& other) : level_points{other.level_points}, cards{other.cards}, coins{other.coins}, hp{other.hp} {}
 
-player& player::operator=(const player& other){
+Player& Player::operator=(const Player& other){
     level_points = other.level_points;
     cards = other.cards;
     coins = other.coins;
@@ -23,7 +23,7 @@ player& player::operator=(const player& other){
     return *this;
 }
 
-void swap(player& first, player& second){
+void swap(Player& first, Player& second){
     using std::swap;
     swap(first.level_points, second.level_points);
     swap(first.cards, second.cards);
@@ -31,9 +31,9 @@ void swap(player& first, player& second){
     swap(first.hp, second.hp);
 }
 
-player::~player() = default;
+Player::~Player() = default;
 
-std::ostream &operator<<(std::ostream &os, const player &player) {
+std::ostream &operator<<(std::ostream &os, const Player &player) {
     os << "level_points: " << player.level_points << " cards: ";
 
     for (const auto &card: player.cards)
@@ -44,7 +44,7 @@ std::ostream &operator<<(std::ostream &os, const player &player) {
     return os;
 }
 
-void player::setup(){
+void Player::setup(){
     while(this->level_points) {
         int i = 0;
         std::cout << "Pachet:\n";
@@ -82,26 +82,26 @@ void player::setup(){
         this->level_points--;
     }
 }
-void player::printdeck() const{
+void Player::printdeck() const{
     int i = 0;
     for(auto card : cards){
         i++;
         std::cout<<"Cartea " << i << ": " << card->getLevel() << '\n';
     }
 }
-void player::damage(int points){
+void Player::damage(int points){
     this->hp -= points;
 }
 
-void player::heal(int points){
+void Player::heal(int points){
     this->hp += points;
 }
 
-int player::showcard(int turn) const{
+int Player::showcard(int turn) const{
     return this->cards[turn]->getLevel();
 }
 
-int player::getHP() const {
+int Player::getHP() const {
     return hp;
 }
 

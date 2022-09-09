@@ -4,7 +4,7 @@
  *
  * About: Description
  * This file provides some useful utilities for console mode
- * roguelike game development with C and C++. It is aimed to
+ * roguelike Game development with C and C++. It is aimed to
  * be cross-platform (at least Windows and Linux).
  *
  * About: Copyright

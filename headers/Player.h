@@ -5,13 +5,13 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "card.h"
+#include "Card.h"
 #include <climits>
 
-class player{
+class Player{
     std::string name;
     int level_points;
-    std::vector<card*> cards;
+    std::vector<Card*> cards;
     int coins;
     int hp;
 
@@ -19,16 +19,16 @@ public:
 
     std::string getName();
 
-    player(std::string name, int levelPoints, std::vector<card*> cards, int coins, int hp);
+    Player(std::string name, int levelPoints, std::vector<Card*> cards, int coins, int hp);
 
-    player(const player& other);
+    Player(const Player& other);
 
-    player& operator=(const player& other);
+    Player& operator=(const Player& other);
 
-    friend std::ostream &operator<<(std::ostream &os, const player &player);
+    friend std::ostream &operator<<(std::ostream &os, const Player &player);
 
-    ~player();
-    friend void swap(player& first, player& second);
+    ~Player();
+    friend void swap(Player& first, Player& second);
     void setup();
     void printdeck() const;
     void damage(int points);

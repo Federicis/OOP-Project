@@ -4,9 +4,9 @@
 
 #include "../headers/Ace.h"
 
-Ace::Ace(int level) : card(level) {}
+Ace::Ace(int level) : Card(level) {}
 
 void Ace::levelup() {
-    card::levelup();
-    card::levelup();
+    Card::levelup();
+    Card::levelup();
 }

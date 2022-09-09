@@ -4,18 +4,18 @@
 #pragma once
 #include <iostream>
 
-class card{
+class Card{
     int level;
 public:
-    explicit card(int level);
+    explicit Card(int level);
 
     int getLevel() const;
 
-    friend std::ostream &operator<<(std::ostream &os, const card &card);
+    friend std::ostream &operator<<(std::ostream &os, const Card &card);
 
     virtual void levelup();
 
-    virtual ~card();
+    virtual ~Card();
 };
 
 
