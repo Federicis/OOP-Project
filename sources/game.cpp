@@ -2,6 +2,7 @@
 // Created by feder on 5/18/2022.
 //
 #include "../headers/game.h"
+#include "../headers/Ace.h"
 
 #define waitkey rlutil::anykey("Press any key to continue...\n")
 using namespace std::chrono_literals;
@@ -11,7 +12,7 @@ int game::turn = 0;
 
 void game::tutorial1(){
     std::cout << "Tutorial:\n"
-                 "      Fiecare jucator incepe cu 7 puncte de nivel si 5 carti de nivel 0. Trebuie sa distribuiti punctele de nivel intre\n cele 5 carti. O carte poate avea minim nivel 1 si maxim nivel 2 la inceputul jocului.\n\n\n";
+                 "      Fiecare jucator incepe cu 4 puncte de nivel si 5 carti de nivel 0, dintre care una este un As ascuns(fiecare Level Up creste nivelul cartii cu 2 puncte). Trebuie sa distribuiti punctele de nivel intre\n cele 5 carti. O carte poate avea minim nivel 1 si maxim nivel 2 la inceputul jocului.\n\n\n";
     waitkey;
 }
 
@@ -116,8 +117,10 @@ game& game::get_game(){
     return game;
 }
 
-std::vector<card> game::starting_deck(){
-    std::vector<card> deck(5, card{0});
+std::vector<card*> game::starting_deck(){
+    int random = rand() % 5 + 1;
+    std::vector<card*> deck{new card(0), new card(0), new card(0), new card(0), new card(0)};
+    deck[random - 1] = new Ace(0);
     return deck;
 }
 
@@ -139,7 +142,7 @@ void game::roundRewards(player &P1, player &P2) {
 void game::start() {
     tutorial1();
     rlutil::cls();
-    player P1{pick_name(1), 7, starting_deck(), 0, 10}, P2{pick_name(2), 7, starting_deck(), 0, 10};
+    player P1{pick_name(1), 4, starting_deck(), 0, 10}, P2{pick_name(2), 4, starting_deck(), 0, 10};
     std::cout << P1.getName() << " isi alege cartile, " << P2.getName() << " nu se mai uita la ecran:\n";
     pick_cards(P1);
     rlutil::cls();

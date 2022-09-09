@@ -23,7 +23,7 @@ public:
     game(const game&) = delete;
     game& operator=(const game&) = delete;
     static game& get_game();
-    static std::vector<card> starting_deck();
+    static std::vector<card*> starting_deck();
 
     void start();
 };

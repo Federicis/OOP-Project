@@ -11,7 +11,7 @@
 class player{
     std::string name;
     int level_points;
-    std::vector<card> cards;
+    std::vector<card*> cards;
     int coins;
     int hp;
 
@@ -19,7 +19,7 @@ public:
 
     std::string getName();
 
-    player(std::string name, int levelPoints, std::vector<card> cards, int coins, int hp);
+    player(std::string name, int levelPoints, std::vector<card*> cards, int coins, int hp);
 
     player(const player& other);
 

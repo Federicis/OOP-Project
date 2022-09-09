@@ -13,7 +13,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const card &card);
 
-    void levelup();
+    virtual void levelup();
 
     virtual ~card();
 };
